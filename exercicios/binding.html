@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Binding</title>
+    <link rel="stylesheet" href="/css/estilo.css">
+    <script src="/js/vue.min.js"></script>
+</head>
+<body class="exercicio">
+    <div id="app" class="">
+        <p>{{ link }}</p>
+        <p><a v-bind:href="link">Forma com a diretiva v-bind - Youtube</a></p>
+        <p><a :href="link">Outra forma de chamar um link, sem o v-bind - Youtube</a></p>
+        <p>
+            <input type="text" v-model="nome"><br>
+            <span>{{ nome }}</span>
+        </p>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                nome: "wilhams",
+                link: "https://www.youtube.com/"
+            },
+            watch: {
+                nome(nomeValor) { // estou pegando a chave nome de data e alterando ela, watch pode definir 
+                                 // o que irá acontecer a partir de alguma ação do usuário
+                    console.log(nomeValor.toUpperCase())
+                }
+            }
+        })
+    </script>
+</body>
+</html>
