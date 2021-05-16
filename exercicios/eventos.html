@@ -7,9 +7,35 @@
     <script src="/js/vue.min.js"></script>
 </head>
 <body class="exercicio">
-
+    <div id="app" class="">
+        <p>{{ contador }}</p>
+        <p>
+            <button v-on:click='add'>+1</button>
+            <button @click='limpar'>Reset</button>
+            <!-- diretiva v-on -> é responsável por linkar um método a uma ação de click ou qq outro evento de JS
+            também consigo fazer a mesma coisa com @click
+            -->
+        </p>
+        <input type='text' @keyup.enter='abrirAlert'>
+    </div>
     <script>
-        // ...
+        new Vue({
+             el: "#app", // el aponta para um selector de id, no qual ele irá trabalhar
+             data: {
+                 contador: 0
+             },
+             methods: {
+                 add() {
+                     this.contador ++
+                 },
+                 limpar() {
+                     this.contador = 0
+                 },
+                 abrirAlert() {
+                    alert('Oi, vc acionou a tecla enter e me ativou :-)')
+                 }
+             }
+        })
     </script>
 </body>
 </html>
