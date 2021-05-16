@@ -12,9 +12,22 @@
     </style>
 </head>
 <body class="exercicio">
-
+    <div id="app" @click="aplicarCor = !aplicarCor" :class="{vermelho: aplicarCor}">
+        Teste
+    </div>
+    <!-- 
+        @click="aplicarCor = !aplicarCor" -> está fazendo a inversão do valor booleano
+        :class="{vermelho: aplicarCor}" -> :class -> para que o vue monitore esta classe
+        e ela recebe a variável aplicarCor, só irá se tornar vermelho se a condição for true
+     -->
     <script>
-        // ...
+        new Vue({
+            el: "#app",
+            data: {
+                aplicarCor: false
+            }
+
+        })
     </script>
 </body>
 </html>
