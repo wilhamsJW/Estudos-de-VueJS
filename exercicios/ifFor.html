@@ -1,15 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>If & For</title>
     <link rel="stylesheet" href="/css/estilo.css">
     <script src="/js/vue.min.js"></script>
 </head>
-<body class="exercicio">
 
+<body class="exercicio">
+    <div id="app" class="">
+        <p v-for='(aluno, i) in alunos'>
+            {{ i+1 }} - {{ aluno.nome }} - Nota: {{ aluno.nota }}
+            <!-- {{ i+1 }} -> para q ele começe o array no 1 enão no 0, se colocar apenas i++ irá começar no 0
+                Diretivas:
+                v-if e v-else-if
+                v-if -> nem renderiza a tag, diferente do v-show q renderiza a tag mas só mostra com uma condição
+                v-else-if -> depende do if acima dele, funciona literalmente como if e else
+            -->
+            <spa v-if="aluno.nota >= 9" style='background-color:crimson'> * (Quadro de Honra)</spa>
+            <spa v-else-if="aluno.nota >= 7" style='background-color: blueviolet' > * (Aprovado)</spa>
+            <spa v-else-if="aluno.nota >= 3" style='background-color:darkgoldenrod' > * (Recuperação)</spa>
+            <spa v-else style='background-color:darkred' > * (Reprovado)</spa>
+        </p>
+    </div>
     <script>
-        // ...
+        new Vue({
+            el: "#app",
+            data: {
+                alunos: [
+                    { nome: "Ana", nota: 7.8 },
+                    { nome: 'bia', nota: 9.1 },
+                    { nome: 'Carlos', nota: 7.1 },
+                    { nome: 'Wilhams', nota: 10.10 },
+                    { nome: 'Antonio', nota: 3.6 },
+                    { nome: 'Suanny', nota: 2.1 },
+                ]
+            }
+        })
     </script>
 </body>
+
 </html>
