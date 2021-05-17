@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Template</title>
     <link rel="stylesheet" href="/css/estilo.css">
     <script src="/js/vue.min.js"></script>
 </head>
+
 <body class="exercicio">
-    
+    <div id="app" class="">
+
+    </div>
     <script>
-        // ...
+        new Vue({
+            el: '#app',
+            data: {
+                titulo: "VueJS",
+                subtitulo: "Framework Progressivo"
+            },
+            template: `
+                <div>
+                    <h1>{{ titulo }}</h1>
+                    <h3>{{ subtitulo }}</h3>    
+                </div>
+            `// backtips é o símbolo da crase no VueJS, funciona como tempalte string
+            // assim como no react é preciso envolver as tags com alguma coisa, nesse caso usamos uma div
+           // mas pode ser qq coisa, inclusive o fragmente e ao contrário do react q gera um erro ao colocar várias tags sem algo em torno dela
+          // o vue simplesmente irá renderizar o primeiro elemento e não os os outros q estiverem, mas não gerará erro   
+        })
     </script>
 </body>
+
 </html>
