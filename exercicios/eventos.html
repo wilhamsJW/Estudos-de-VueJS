@@ -17,12 +17,24 @@
             -->
         </p>
         <input type='text' @keyup.enter='abrirAlert'>
+        <!-- Coordenadas: {{ x }} e {{ y }} -> irá mostrar a posição do mouse em número 
+            @mousemove.stop -> para a ação do mousemove
+             @mousemove='stop' -> para a ação do mouseve chamando um método, no caso o stop, em methods
+             e.stopPropagation() -> função nativa para parar uma execução de um método
+             então no caso só se usa o mais prático que é o @mousemove='stop'
+        -->
+        <p @mousemove='atualizarPosicao' > Coordenadas: {{ x }} e {{ y }} 
+            <span @mousemove.stop>Aqui não com @mousemove.stop</span><br>
+            <span @mousemove='stop'>Aqui não @mousemove='stop'</span>
+        </p>
     </div>
     <script>
         new Vue({
              el: "#app", // el aponta para um selector de id, no qual ele irá trabalhar
              data: {
-                 contador: 0
+                 contador: 0,
+                 x: 0,
+                 y: 0
              },
              methods: {
                  add() {
@@ -30,6 +42,14 @@
                  },
                  limpar() {
                      this.contador = 0
+                 },
+                 atualizarPosicao(e) {
+                     this.x = e.clientX
+                     this.y = e.clientY
+                 },
+                 stop(e) {
+                    e.stopPropagation()
+                    // e.stopPropagation() -> função nativa para parar uma execução de um método
                  },
                  abrirAlert() {
                     alert('Oi, vc acionou a tecla enter e me ativou :-)')
