@@ -7,9 +7,32 @@
     <script src="/js/vue.min.js"></script>
 </head>
 <body class="exercicio">
-
+<div id="app">
+    <input type="text" v-model="nome"/>
+    <div v-inverter="nome"></div>
+</div>
     <script>
-        // ...
+    Vue.directive('inverter', {
+        // componenteUpdate recebe dois parãemtros, o primeiro é o próprio elemento e o segundo é o
+        // binding -> tem a ver com o valor aplicado na diretiva, nesse caso o que tem v-mode o nome
+        // o biding me trás o valor q foi colcado na diretiva 
+        // binding.value -> pegando o valor da diretiva
+        // .split -> não está sendo usado para o que mais usamos ou seja como separador, está sendo
+        // usasdo apenas para criar um array, reverse -> reverte esse array e join -> junta tudo
+        // componentUpdated lembra que é updated com d no final e não sem o d igual no react
+        componentUpdated(el, binding) {
+            const invertido = binding.value.split('')
+            .reverse().join('')
+            el.innerHTML = invertido
+        }
+    })
+
+    new Vue({
+            el: "#app",
+            data: {
+                nome: ''
+            }
+        })
     </script>
 </body>
 </html>

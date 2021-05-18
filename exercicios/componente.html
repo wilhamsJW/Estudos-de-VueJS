@@ -7,9 +7,39 @@
     <script src="/js/vue.min.js"></script>
 </head>
 <body class="exercicio">
-
+    <div id="app" class="">
+        <saudacao nome="Wilhams Júnior"></saudacao>
+    </div>
     <script>
-        // ...
+        // Vue.component -> são instâncias reutilizáveis do Vue,
+        // Como componentes são instância Vue reutilizáveis,
+        // eles aceitam as mesmas opções que new Vue, como data, computed, watch, methods | só não aceita el
+        // a opção data de um componente precisa ser uma função, 
+        // para que cada instância possa manter uma cópia independente do object data retornado
+        Vue.component('saudacao', {
+            props: ['nome'],
+            data: function(){
+                return {
+                    idade: "25",
+                    contador: 0
+                }
+            },
+   
+            template: `
+             <div>
+                <div>Bom dia {{ nome }}</div>
+                <div>Sua idade {{ idade }}</div>
+                <button> {{ contador }}</button>
+             </div>   
+            `
+        })
+
+        new Vue({
+            el: "#app",
+            data: {
+
+            }
+        })
     </script>
 </body>
 </html>
