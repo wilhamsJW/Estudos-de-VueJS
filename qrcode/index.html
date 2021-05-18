@@ -4,15 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <script src="js/vue.min.js"></script>
-    <script src="js/qrious.min.js"></script>
+    <script src="js/qrious.min.js"></script> <!--Lib pra gerar o qrcode-->
     <link rel="stylesheet" href="css/style.css">
     <title>Gerador de QRCode</title>
 </head>
 
 <body>
+    <div id="app" class="">
+        <h1>{{ title }}</h1>
+        <input 
+            type="text" 
+            size="25"
+            placeholder="Digite para gerar..."
+            :value="text" 
+            @input="onData"
+        >
+        <!-- :value="text" -> os dois pontos faz com que o vue monitore esse value e consequetemente
+            o valor text será o mesmo do data na instância Vue
+            @input -> está passando tudo sobre o input inclusive o valor sendo enviado para onData e
+            sendo pego por event.target.value, depois dê um console em event dentro do onData e veja os
+            valores do input
 
+            :src="newQRCode" -> está chamando a função newQRCode que gera o link do meu src,
+            os dois pontinhos antes indica que é um atributo html sendo monitorado pelo view
+
+            UMA FORMA MAIS SIMPLES DE FAZER ESSE CÓDIGO:
+
+            1 - Retire o onData
+            2 - Retire o @input="onData"
+            3 - No lugar de :value="text" coloque v-model="text"
+
+            Pronto, isso deixará o código mais limpo!
+
+            O que aconteceu?
+
+            o v-model automaticamente enxerga o atributo text e altera junto com ele, a partir do momento
+            que eu altero o input o v-model passa esse valor para o text eliminado o método onData que tem a
+            função de atualizar o text
+        -->
+        <div v-if='text' class="output"><img :src="newQRCode" alt="QRCode"></img></div>
+    </div>
     <script>
-        // ...
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Gerador QRcode',
+                text: 'https://www.cod3r.com.br',
+                qrcode: new QRious({ size: 300 }) // é uma instâcia da lib importada acima
+            },
+            // computed -> onde colocamos os atributos que são calculados durante a aplicação
+            // nesse caso pra cada texto gerado pelo usuário vou fazer aparecer um qrcode especifico 
+            computed: {
+                newQRCode() {
+                    // this.qrcode.toDataURL() -> gera a imagem e url do qrcode
+                    // this.qrcode -> é a instancia da lib, qrcode é o atributo dentro do data acima
+                    // this.qrcode.value -> o valor dele será o this text que é o texto apresentado ao user
+                    // esse texto mostrado ao user é alterado sendo invocado pelo @input="onData", chamando o onData
+                    // o OnData irá dizer que o valor text dentro do data será igual ao event.target.value
+                    // dessa forma text sempre será alterado e isso fará com que sempre gere um novo qrcode
+                    // de acordo com o text informado
+                    this.qrcode.value = this.text
+                    return this.qrcode.toDataURL()
+                }
+            },
+            methods: {
+                // o OnData irá dizer que o valor text dentro do data será igual ao event.target.value
+                // dessa forma text sempre será alterado e isso fará com que sempre gere um novo qrcode
+                // de acordo com o text informado
+                // o onData sempre tá atualizando text, this.qrcode.value recebe text então o this.qrcode.value
+                // está sempre atualizado gerando assim um qrcode automático
+                onData(event) {
+                    // console.log('event', event)
+                    this.text = event.target.value
+                }
+            }
+        })
     </script>
 </body>
 
