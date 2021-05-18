@@ -13,7 +13,10 @@
 </div>
     <script>
     Vue.directive('inverter', {
-        // componenteUpdate recebe dois parãemtros, o primeiro é o próprio elemento e o segundo é o
+        // componenteUpdate recebe dois parãemtros, o primeiro é o "EL" que é o próprio elemento ou seja
+        // é a div em si então quando dou el.innerHTML estou mandando alterar o q vai ser exibido daquela div 
+        // ou diretiva em si
+        // segundo é o binding
         // binding -> tem a ver com o valor aplicado na diretiva, nesse caso o que tem v-mode o nome
         // o biding me trás o valor q foi colcado na diretiva 
         // binding.value -> pegando o valor da diretiva
@@ -21,6 +24,7 @@
         // usasdo apenas para criar um array, reverse -> reverte esse array e join -> junta tudo
         // componentUpdated lembra que é updated com d no final e não sem o d igual no react
         componentUpdated(el, binding) {
+            console.log('el', el)
             const invertido = binding.value.split('')
             .reverse().join('')
             el.innerHTML = invertido
